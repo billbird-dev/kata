@@ -1,7 +1,7 @@
 {
   "name": "kata",
   "version": "0.0.0",
-  "license": "GNU GPLv3",
+  "license": "GPL-3.0",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
