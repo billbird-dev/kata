@@ -1,9 +1,26 @@
-<script setup lang="ts"></script>
-<template>
-  <div class="p-3 flex space-x-3 h-screen max-h-screen">
-    <div class="w-1/3 flex-none">Hii</div>
+<script setup lang="ts">
+import { ref } from 'vue';
+import Sink from './views/Sink.vue';
+import Views from './views/Index.vue';
+import KButton from './components/KButton.vue';
 
-    <div class="flex-grow">some</div>
+const view = ref<'sink' | 'index'>('sink');
+</script>
+<template>
+  <div>
+    <div class="w-full flex items-center justify-between bg-warm-gray-100 p-1">
+      <div class="text-lime-600 font-bold text-xl">Kata</div>
+      <div class="flex space-x-1">
+        <k-button @click="view = 'sink'"> Sink </k-button>
+        <k-button @click="view = 'index'"> Home </k-button>
+      </div>
+    </div>
+
+    <div class="p-2">
+      <sink v-if="view === 'sink'" />
+
+      <views v-else />
+    </div>
   </div>
 </template>
 <style lang="scss" scoped></style>
