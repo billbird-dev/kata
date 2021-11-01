@@ -6,15 +6,16 @@
       py-1
       bg-lime-400
       border-none
-      outline-transparent
       rounded-md
       text-sm
       hover:bg-lime-500
       transition-colors
       duration-300
       ease
+      focus:(ring
+      outline-none
+      border-lime-400)
     "
-    v-bind="$attrs"
   >
     <slot />
   </button>
