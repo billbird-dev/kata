@@ -1,4 +1,5 @@
 ### kata
+> Mold in japaneese
 
 ### approach
 - schema based templating and rendering
