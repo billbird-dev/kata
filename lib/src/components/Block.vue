@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { StyleTools } from '$lib/types/styles';
-import { generateStyles } from '$lib/utils';
 import { computed } from 'vue';
+
+import { StyleTools } from 'src/types/styles';
+import { generateStyles } from 'src/utils';
 
 const props = defineProps<{ config: StyleTools }>();
 

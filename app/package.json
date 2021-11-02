@@ -1,0 +1,12 @@
+{
+  "name": "app",
+  "license": "GPL-3.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "kata": "workspace:*"
+  }
+}

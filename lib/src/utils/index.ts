@@ -1,4 +1,4 @@
-import { StyleTools } from '$lib/types/styles';
+import { StyleTools } from 'src/types/styles';
 
 export function generateStyles(
   props: Partial<StyleTools>,

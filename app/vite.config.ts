@@ -8,7 +8,6 @@ export default defineConfig({
   plugins: [vue(), Windi(), VueTypeImports()],
   resolve: {
     alias: {
-      $lib: '/lib',
       $src: '/src',
     },
   },
