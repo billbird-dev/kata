@@ -12,9 +12,6 @@
     "lib": ["esnext", "dom"],
     "outDir": "./dist",
     "baseUrl": ".",
-    "paths": {
-      "src/*": ["src/*"]
-    },
     "skipLibCheck": true
   },
   "exclude": ["node_modules", "./dist/*"],

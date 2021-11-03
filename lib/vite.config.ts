@@ -22,9 +22,4 @@ export default defineConfig({
       },
     },
   },
-  resolve: {
-    alias: {
-      'src/': new URL('./src/', import.meta.url).pathname,
-    },
-  },
 });

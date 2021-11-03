@@ -5,10 +5,13 @@ import VueTypeImports from 'vite-plugin-vue-type-imports';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), Windi(), VueTypeImports()],
+  server: {
+    port: 4000,
+  },
+  plugins: [vue(), Windi()],
   resolve: {
     alias: {
-      $src: '/src',
+      'src/': new URL('./src/', import.meta.url).pathname,
     },
   },
 });

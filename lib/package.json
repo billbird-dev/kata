@@ -1,13 +1,6 @@
 {
   "name": "kata",
-  "main": "./dist/kata.umd.js",
-  "module": "./dist/kata.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/kata.es.js"
-    }
-  },
+  "main": "./src/index.ts",
   "scripts": {
     "dts": "vue-tsc --declaration --emitDeclarationOnly --declarationDir ./dist/types && npx tsc-alias --resolveFullPaths true",
     "build": "rm -rf ./dist && vite build && npm run dts"
