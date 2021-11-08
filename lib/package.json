@@ -1,9 +1,12 @@
 {
   "name": "kata",
-  "main": "./src/index.ts",
+  "main": "./dist/kata.umd.js",
+  "module": "./dist/kata.es.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
-    "dts": "vue-tsc --declaration --emitDeclarationOnly --declarationDir ./dist/types && npx tsc-alias --resolveFullPaths true",
-    "build": "rm -rf ./dist && vite build && npm run dts"
+    "dts": "vue-tsc --declaration --emitDeclarationOnly --declarationDir ./dist",
+    "build": "vite build && npm run dts",
+    "watch": "node ./scripts/watch.js"
   },
   "sideEffects": false,
   "peerDependencies": {
@@ -11,6 +14,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.11.6",
+    "cheap-watch": "^1.0.4",
     "typescript": "^4.4.3",
     "vue-tsc": "^0.28.10"
   }
