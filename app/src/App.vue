@@ -8,11 +8,11 @@ const view = ref<'sink' | 'index'>('sink');
 </script>
 <template>
   <div>
-    <div class="w-full flex items-center justify-between bg-warm-gray-100 p-1">
+    <div class="w-full flex items-center justify-between bg-gray-100 p-1">
       <div class="text-lime-600 font-bold text-xl">Kata</div>
       <div class="flex space-x-1">
-        <k-button @click="view = 'sink'"> Sink </k-button>
-        <k-button @click="view = 'index'"> Home </k-button>
+        <k-button @click="view = 'sink'"> sink </k-button>
+        <k-button @click="view = 'index'"> home </k-button>
       </div>
     </div>
 

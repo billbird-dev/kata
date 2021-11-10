@@ -4,17 +4,15 @@
     class="
       px-3
       py-1
-      bg-lime-400
-      border-none
+      bg-lime-300
       rounded-md
       text-sm
-      hover:bg-lime-500
+      hover:bg-lime-400
       transition-colors
       duration-300
       ease
-      focus:(ring
-      outline-none
-      border-lime-400)
+      focus:(outline-none
+      shadow-inner)
     "
   >
     <slot />
