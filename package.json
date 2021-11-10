@@ -7,7 +7,7 @@
     "build:lib": "cd lib && npm run build",
     "build:app": "cd app && npm run build",
     "watch:lib": "cd lib && npm run watch",
-    "dev": "concurrently --kill-others-on-fail \" npm run watch:lib \" \" npm run dev:app\" "
+    "dev": "npm run dev:app"
   },
   "dependencies": {
     "vue": "^3.2.20"

@@ -5,8 +5,7 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "dts": "vue-tsc --declaration --emitDeclarationOnly --declarationDir ./dist",
-    "build": "vite build && npm run dts",
-    "watch": "node ./scripts/watch.js"
+    "build": "vite build && npm run dts"
   },
   "sideEffects": false,
   "peerDependencies": {
