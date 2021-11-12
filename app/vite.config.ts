@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     port: 4000,
   },
-  plugins: [vue(), Windi(), analyze()],
+  plugins: [vue({ refTransform: true }), Windi(), analyze()],
   build: {
     minify: false,
   },

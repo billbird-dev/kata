@@ -4,7 +4,7 @@ import { StyleTools } from '../../types/styles';
 import { generateStyles } from '../../utils';
 
 const props = withDefaults(
-  defineProps<{ config: StyleTools; imgSrc: string; alt?: string }>(),
+  defineProps<{ config?: StyleTools; imgSrc: string; alt?: string }>(),
   {
     config: () => ({
       align: 'center',

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import Sink from './views/Sink.vue';
 import Views from './views/Index.vue';
 import KButton from './components/KButton.vue';
 
-const view = ref<'sink' | 'index'>('sink');
+let view = $ref<'sink' | 'index'>('sink');
 </script>
 <template>
   <div>
