@@ -1,6 +1,8 @@
 [build.environment]
   NPM_FLAGS = "--version" # prevent Netlify npm install
+  NODE_VERSION = "14"
+
 
 [build]
   publish = "app/dist"
-  command = "npx pnpm i --store=node_modules/.pnpm-store && npm run build:app"
+  command = "npx pnpm i --store=node_modules/.pnpm-store && npm run build"
