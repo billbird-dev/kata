@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import Sink from './views/Sink.vue';
 import Views from './views/Index.vue';
-import KButton from './components/KButton.vue';
+import { FButton } from 'furikaeru';
 
-let view = $ref<'sink' | 'index'>('sink');
+let view = $ref<'sink' | 'index'>('index');
 </script>
 <template>
   <div>
     <div class="w-full flex items-center justify-between bg-gray-100 p-1">
       <div class="text-lime-600 font-bold text-xl">Kata</div>
       <div class="flex space-x-1">
-        <k-button @click="view = 'sink'"> sink </k-button>
-        <k-button @click="view = 'index'"> home </k-button>
+        <f-button :sm="true" class="cursor-pointer" icon="mdi:library-shelves" @click="view = 'sink'" label="sink" />
+        <f-button :sm="true" class="cursor-pointer" icon="mdi:home" @click="view = 'index'" label="home" />
       </div>
     </div>
 

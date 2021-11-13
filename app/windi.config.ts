@@ -1,5 +1,6 @@
 import { defineConfig } from 'windicss/helpers';
 
+const COLORS = ['red', 'green', 'purple', 'indigo', 'cyan', 'amber', 'lime'];
 interface Config {
   key: string;
   set: (string | number)[];
@@ -25,12 +26,22 @@ const FLEX_GROW: Config = {
   set: ['auto', 'shrink', 'grow', 'none'],
 };
 
+const BG_COLOR: Config = {
+  key: 'bg',
+  set: [500, 400, 300, 50, 200, 100].map((el) => COLORS.map((c) => `${c}-${el}`)).flat(),
+};
+
+const HOVER_BG_COLOR: Config = {
+  key: 'hover:bg',
+  set: [300, 400].map((r) => COLORS.map((c) => `${c}-${r}`)).flat(),
+};
+
 function generateSafeList(config: Config[]) {
   return config.map((el) => el.set.map((s) => `${el.key}-${s}`));
 }
 
 export default defineConfig({
   darkMode: 'class',
-  safelist: generateSafeList([SPACE_Y, FLEX_ALIGN, FLEX_GROW, FLEX_JUSTIFY]),
-  extract: { include: ['../**/src/**/*.{vue,html,jsx,tsx}'] },
+  safelist: generateSafeList([SPACE_Y, FLEX_ALIGN, FLEX_GROW, FLEX_JUSTIFY, HOVER_BG_COLOR, BG_COLOR]),
+  extract: { include: ['../**/src/**/*.{vue,html,jsx,tsx}', './node_modules/furikaeru/dist/*'] },
 });

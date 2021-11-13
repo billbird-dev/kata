@@ -3,13 +3,19 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
+    "@iconify/iconify": "^2.1.0",
+    "click-outside-vue3": "^4.0.1",
+    "furikaeru": "^0.1.1",
     "kata": "workspace:*"
   },
   "devDependencies": {
-    "rollup-plugin-analyzer": "^4.0.0"
+    "@iconify/json": "^1.1.427",
+    "rollup-plugin-visualizer": "^5.5.2",
+    "sass": "^1.43.4",
+    "vite-plugin-purge-icons": "^0.7.0"
   }
 }

@@ -15,3 +15,5 @@ export type Space = '1' | '2' | '3' | '4' | '5';
 export interface HeaderInfoStyles extends StyleTools {
   space?: Space;
 }
+
+export type CombinedComponentConfig = Partial<StyleTools & HeaderInfoStyles>;
