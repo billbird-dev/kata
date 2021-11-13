@@ -9,11 +9,12 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "paths": {
       "src/*": ["./src/*"]
     }
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "vite.config.ts"]
 }

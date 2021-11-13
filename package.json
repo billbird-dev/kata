@@ -6,8 +6,8 @@
     "dev:app": "cd app && npm run dev",
     "build:lib": "cd lib && npm run build",
     "build:app": "cd app && npm run build",
-    "watch:lib": "cd lib && npm run watch",
-    "dev": "npm run dev:app"
+    "dev": "npm run dev:app",
+    "build": "npm run build:lib && npm run build:app"
   },
   "dependencies": {
     "vue": "^3.2.20"
