@@ -32,7 +32,7 @@ importers:
       '@iconify/iconify': ^2.1.0
       '@iconify/json': ^1.1.427
       click-outside-vue3: ^4.0.1
-      furikaeru: ^0.1.1
+      furikaeru: ^0.2.1
       kata: workspace:*
       rollup-plugin-visualizer: ^5.5.2
       sass: ^1.43.4
@@ -40,7 +40,7 @@ importers:
     dependencies:
       '@iconify/iconify': 2.1.0
       click-outside-vue3: 4.0.1
-      furikaeru: 0.1.1
+      furikaeru: 0.2.1_ed9322cf50da1f38cda10712b3c34c8f
       kata: link:../lib
     devDependencies:
       '@iconify/json': 1.1.427
@@ -836,10 +836,24 @@ packages:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
     dev: true
 
-  /furikaeru/0.1.1:
-    resolution: {integrity: sha512-lp1Tl1TaonLIzVHhsQDg7nONcGkZKJ9V5u9kkHnnpF72eogUP/wzr++OTihqe34x46+MHxwAXnIYpEVD54VC8Q==}
+  /furikaeru/0.2.1_ed9322cf50da1f38cda10712b3c34c8f:
+    resolution: {integrity: sha512-JjOUuaguqRd9K2t4Ky5XG5fwcKPAJvt+kx3+Y/gdqj3F58ByHnhJ/a517q1JDsvrAXX8SHaYbzB9veOJGY//Gg==}
+    peerDependencies:
+      '@iconify/iconify': ^2.0.4
+      '@iconify/json': ^1.1.415
+      click-outside-vue3: ^4.0.1
+      vite-plugin-purge-icons: ^0.7.0
+      vite-plugin-windicss: ^1.4.11
+      vue: ^3.2.20
+      windicss: ^3.1.9
     dependencies:
+      '@iconify/iconify': 2.1.0
+      '@iconify/json': 1.1.427
+      click-outside-vue3: 4.0.1
+      vite-plugin-purge-icons: 0.7.0_vite@2.6.13
+      vite-plugin-windicss: 1.4.12_vite@2.6.13
       vue: 3.2.20
+      windicss: 3.2.0
     dev: false
 
   /get-caller-file/2.0.5:
