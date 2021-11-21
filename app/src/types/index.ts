@@ -1,5 +1,4 @@
-import { HeaderInfoStyles, StyleTools } from 'kata';
-import { CombinedComponentConfig } from 'kata/src';
+import { CombinedComponentConfig } from 'kata';
 
 export type componentNames = 'kata-header' | 'header-info' | 'header-logo';
 export type componentProps = Record<string, string | number | { [x: string]: any }>;
@@ -15,3 +14,16 @@ export interface Block {
 }
 
 export type Classes = (string | { [x: string]: boolean })[];
+
+export type SectionName = 'header' | 'intro' | 'info' | 'items' | 'total-footer' | 'summary' | 'misc';
+
+export type AcceptedComponents = { [x in Block['component']]?: (keyof CombinedComponentConfig)[] };
+
+export interface Section {
+  name: SectionName;
+  classes?: Classes;
+  max: number;
+  components: AcceptedComponents;
+}
+
+export type InvoiceSchema = { [x in SectionName]?: Section };

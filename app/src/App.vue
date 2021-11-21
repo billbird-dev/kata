@@ -10,8 +10,15 @@ let view = $ref<'sink' | 'index'>('index');
     <div class="w-full flex items-center justify-between bg-gray-100 p-1">
       <div class="text-lime-600 font-bold text-xl">Kata</div>
       <div class="flex space-x-1">
-        <f-button :sm="true" class="cursor-pointer" icon="mdi:library-shelves" @click="view = 'sink'" label="sink" />
-        <f-button :sm="true" class="cursor-pointer" icon="mdi:home" @click="view = 'index'" label="home" />
+        <f-button
+          color="lime"
+          sm
+          class="cursor-pointer"
+          icon="mdi:library-shelves"
+          @click="view = 'sink'"
+          label="sink"
+        />
+        <f-button color="lime" sm class="cursor-pointer" icon="mdi:home" @click="view = 'index'" label="home" />
       </div>
     </div>
 

@@ -9,11 +9,11 @@
   "dependencies": {
     "@iconify/iconify": "^2.1.0",
     "click-outside-vue3": "^4.0.1",
-    "furikaeru": "^0.2.1",
+    "furikaeru": "^0.3.0",
     "kata": "workspace:*"
   },
   "devDependencies": {
-    "@iconify/json": "^1.1.427",
+    "@iconify/json": "^1.1.428",
     "rollup-plugin-visualizer": "^5.5.2",
     "sass": "^1.43.4",
     "vite-plugin-purge-icons": "^0.7.0"

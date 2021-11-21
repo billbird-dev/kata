@@ -1,0 +1,6 @@
+{
+  "align": ["start", "end", "center"],
+  "justify": ["start", "end", "center", "between"],
+  "flex": ["auto", "shrink", "grow", "none"],
+  "space": ["1", "2", "3", "4", "5"]
+}

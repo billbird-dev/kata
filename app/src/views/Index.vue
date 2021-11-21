@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import { Block, Classes, componentNames } from 'src/types';
+import {
+  AcceptedComponents,
+  Block,
+  CombinedConfig,
+  componentNames,
+  InvoiceSchema,
+  Section,
+  SectionName,
+} from 'src/types';
 import TreeNode from 'src/components/TreeNode.vue';
 import { randomId } from 'src/utils';
-import { CombinedComponentConfig } from '../../../lib/src';
 import { FMenu } from 'furikaeru';
 import { ref } from 'vue';
-
-type SectionName = 'header' | 'intro' | 'info' | 'items' | 'total-footer' | 'summary' | 'misc';
-
-type AcceptedComponents = { [x in Block['component']]?: (keyof CombinedComponentConfig)[] };
-
-interface Section {
-  name: SectionName;
-  classes?: Classes;
-  max: number;
-  components: AcceptedComponents;
-}
-
-type InvoiceSchema = { [x in SectionName]?: Section };
+import KAction from 'src/components/KAction.vue';
+import ConfigModal from 'src/components/ConfigModal.vue';
+import { CombinedComponentConfig } from 'kata';
 
 let schema = ref<{ [x in SectionName]?: Block }>({
   header: {
@@ -108,9 +105,70 @@ function handleAddElement(element: string | number, sectionId: SectionName) {
 
   schema.value[sectionId]?.children.push(newEl);
 }
+
+function handleRemoveEl(id: string, sectionId: SectionName) {
+  const idx = schema.value[sectionId]?.children.findIndex((e) => e.id === id);
+
+  if ([-1, undefined].includes(idx)) return;
+
+  schema.value[sectionId]?.children.splice(idx, 1);
+}
+
+let isSettingsModal = $ref(false);
+
+let configModalContext = $ref<{
+  name: componentNames;
+  configTypes: (keyof CombinedComponentConfig)[];
+  section: SectionName;
+  existingConfig?: CombinedConfig;
+}>({} as any);
+
+const reset = () =>
+  (configModalContext = {
+    configTypes: [],
+  } as any);
+
+function toggleModal() {
+  isSettingsModal = !isSettingsModal;
+}
+
+function openConfigModal(name: componentNames, section: SectionName) {
+  let child = schema.value[section]?.children.filter((e) => e.component === name)[0];
+
+  if (!child) return;
+
+  configModalContext = {
+    name: name,
+    configTypes: INVOICE_SCHEMA[section]?.components[name] || [],
+    section,
+    existingConfig: child.config,
+  };
+
+  toggleModal();
+}
+
+function handleConfig(config: CombinedConfig) {
+  let child = schema.value[configModalContext.section]?.children.filter(
+    (e) => e.component === configModalContext.name,
+  )[0];
+
+  if (!child) return;
+
+  child.config = config;
+
+  reset();
+}
 </script>
 <template>
   <div class="p-3 flex space-x-3 h-full max-h-full">
+    <config-modal
+      v-model="isSettingsModal"
+      :component="configModalContext.name"
+      :config-types="configModalContext.configTypes"
+      :previous-config="configModalContext.existingConfig"
+      @config="handleConfig"
+    />
+
     <div class="w-1/3 flex-none">
       <pre class="text-xs text-gray-800 p-2 rounded-md bg-gray-200 !break-all !break-words">
   {{ schema }}
@@ -125,7 +183,7 @@ function handleAddElement(element: string | number, sectionId: SectionName) {
         :id="section[0]"
         :class="[
           ...(section[1].classes || []),
-          { 'min-h-24': !schema[section[0]] || !schema[section[0]].children.length },
+          { 'min-h-24': !schema[section[0]] || !schema[section[0]]!.children.length },
         ]"
         class="p-1 flex relative"
       >
@@ -142,18 +200,14 @@ function handleAddElement(element: string | number, sectionId: SectionName) {
             group
             flex-col
             space-y-1
-            opacity-0
             py-1
+            opacity-0
           "
         >
           <div class="text-center text-gray-500 font-semibold uppercase">{{ section[0] }}</div>
-          <div class="grid grid-cols-2 space-x-3 p-2">
-            <!-- //? manage components container -->
-            <div class="flex-grow flex space-x-1 justify-between text-xs">
-              <div class="flex-col space-y-1">
-                <div>Add component</div>
-                <div>current components count: {{ schema[section[0]]?.children.length }}</div>
-              </div>
+          <!-- //? manage components container -->
+          <div class="flex space-x-3 text-xs p-2">
+            <div class="flex-none">
               <f-menu
                 :options="trasformComponentsToOptions(section[1].components, schema[section[0]]?.children || [])"
                 option-key="value"
@@ -162,22 +216,27 @@ function handleAddElement(element: string | number, sectionId: SectionName) {
                 :sm="true"
                 @input="handleAddElement($event, section[0])"
                 v-if="schema[section[0]]?.children.length !== INVOICE_SCHEMA[section[0]]?.max"
+                color="lime"
               />
+              <div v-else>No slot to fill</div>
             </div>
 
-            <!-- //? child config container -->
-            <div class="flex-grow flex space-x-1 justify-between text-xs">
-              <div class="flex-col space-y-1">
-                <div>Config</div>
+            <div class="flex-grow">
+              <div class="text-md mb-1">Components {{ schema[section[0]]?.children.length }}</div>
+
+              <div class="flex space-x-2">
+                <div
+                  class="flex space-x-2 items-center w-1/3 justify-between py-1 px-2 rounded-md bg-gray-100"
+                  v-for="{ component, id } in schema[section[0]]?.children"
+                  :key="id"
+                >
+                  <div>{{ component }}</div>
+                  <div class="flex space-x-1">
+                    <k-action icon="mdi:cog" @click="openConfigModal(component, section[0])" />
+                    <k-action icon="mdi:trash-can-outline" type="danger" @click="handleRemoveEl(id, section[0])" />
+                  </div>
+                </div>
               </div>
-              <!-- <f-menu
-                :options="trasformComponentsToOptions(section[1].components, schema[section[0]]?.children || [])"
-                option-key="value"
-                label="Add element"
-                v-model="model"
-                :sm="true"
-                @input="handleAddElement($event, section[0])"
-              /> -->
             </div>
           </div>
         </div>
