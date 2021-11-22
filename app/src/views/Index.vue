@@ -130,7 +130,7 @@ function handleAddElement(element: string | number, sectionId: SectionName) {
 function handleRemoveEl(id: string, sectionId: SectionName) {
   const idx = schema.value[sectionId]?.children.findIndex((e) => e.id === id);
 
-  if (idx === -1 || !idx) return;
+  if (idx === -1 || idx === undefined) return;
 
   schema.value[sectionId]?.children.splice(idx, 1);
 }
