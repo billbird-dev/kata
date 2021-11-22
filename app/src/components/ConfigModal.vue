@@ -45,6 +45,8 @@ watch(
 );
 
 function emitConfig() {
+  if (!Object.keys(configModels).length) return;
+
   emits('config', configModels);
   configModels = {};
 
@@ -52,14 +54,7 @@ function emitConfig() {
 }
 </script>
 <template>
-  <f-modal
-    :title="'Settings'"
-    width="300px"
-    title-size="20px"
-    :model-value="isModal"
-    v-model="isModal"
-    @close="emitConfig"
-  >
+  <f-modal :title="'Settings'" width="300px" title-size="20px" v-model="isModal" @close="emitConfig">
     <div slot="body">
       <div class="flex flex-col space-y-3">
         <div v-for="[name, config] in Object.entries(configOptions)" class="flex justify-between items-center">
@@ -77,7 +72,7 @@ function emitConfig() {
       </div>
 
       <div class="flex justify-end mt-5">
-        <f-button @click="emitConfig" label="Apply" sm color="lime" />
+        <f-button @click="emitConfig" label="Apply" sm color="lime" :disabled="!Object.keys(configModels).length" />
       </div>
     </div>
   </f-modal>

@@ -16,7 +16,8 @@ import KAction from 'src/components/KAction.vue';
 import ConfigModal from 'src/components/ConfigModal.vue';
 import { CombinedComponentConfig } from 'kata';
 
-let schema = ref<{ [x in SectionName]?: Block }>({
+// schema
+const schema = ref<{ [x in SectionName]?: Block }>({
   header: {
     component: 'kata-header',
     children: [],
@@ -41,6 +42,7 @@ section -> header
 
 */
 
+// invoice sections schema config
 const INVOICE_SCHEMA: InvoiceSchema = {
   header: {
     name: 'header',
@@ -52,6 +54,7 @@ const INVOICE_SCHEMA: InvoiceSchema = {
   },
 };
 
+// schema components props store
 const COMPONENT_PROPS: { [C in componentNames]: Record<string, string | number | { [x: string]: any }> } = {
   'header-info': {
     data: {
@@ -69,28 +72,31 @@ const COMPONENT_PROPS: { [C in componentNames]: Record<string, string | number |
   'kata-header': {},
 };
 
+// loopable invoice schema config to render sections
 let loopableSchema = $computed(() => Object.entries(INVOICE_SCHEMA) as any as [SectionName, Section][]);
 
+// transformer for menu
 function trasformComponentsToOptions(components: AcceptedComponents, sectionEls: Block[]) {
-  return Object.keys(components)
-    .map((key) => ({ label: key, value: key }))
-    .filter((e) => !sectionEls.some((el) => el.component === e.label));
+  return Object.keys(components).map((e) => ({ label: e, value: e }));
 }
 
+// menu model
 let model = $ref('');
 
+// add element handler
 function handleAddElement(element: string | number, sectionId: SectionName) {
   element = element as componentNames;
 
   const section = schema.value[sectionId];
 
-  console.log(section);
-
+  // if no section or if element is already there retutn
   if (!section) return;
+  if (isAdded(element, section.children)) return;
 
   const slots = section.children.length;
   const max = INVOICE_SCHEMA[sectionId]?.max || 0;
 
+  // calculate if max slots is filled or not
   if (slots > 0 && max - slots === 0) return;
 
   const newEl: Block = {
@@ -106,16 +112,18 @@ function handleAddElement(element: string | number, sectionId: SectionName) {
   schema.value[sectionId]?.children.push(newEl);
 }
 
+// remove element handler
 function handleRemoveEl(id: string, sectionId: SectionName) {
   const idx = schema.value[sectionId]?.children.findIndex((e) => e.id === id);
 
-  if ([-1, undefined].includes(idx)) return;
+  if (idx === -1 || !idx) return;
 
   schema.value[sectionId]?.children.splice(idx, 1);
 }
 
 let isSettingsModal = $ref(false);
 
+// config modal context
 let configModalContext = $ref<{
   name: componentNames;
   configTypes: (keyof CombinedComponentConfig)[];
@@ -147,6 +155,7 @@ function openConfigModal(name: componentNames, section: SectionName) {
   toggleModal();
 }
 
+// handle config assignment
 function handleConfig(config: CombinedConfig) {
   let child = schema.value[configModalContext.section]?.children.filter(
     (e) => e.component === configModalContext.name,
@@ -157,6 +166,15 @@ function handleConfig(config: CombinedConfig) {
   child.config = config;
 
   reset();
+}
+
+// check if element is inside schema
+function isAdded(name: string, children: Block[]) {
+  return children.some((e) => e.component === name);
+}
+
+function getNode(node?: Block) {
+  return node as Block;
 }
 </script>
 <template>
@@ -217,7 +235,17 @@ function handleConfig(config: CombinedConfig) {
                 @input="handleAddElement($event, section[0])"
                 v-if="schema[section[0]]?.children.length !== INVOICE_SCHEMA[section[0]]?.max"
                 color="lime"
-              />
+              >
+                <template #option="{ option }">
+                  <div
+                    class="flex items-center"
+                    :class="{ 'line-through cursor-not-allowed': isAdded(option, schema[section[0]]?.children || []) }"
+                  >
+                    {{ option }}
+                  </div>
+                </template>
+              </f-menu>
+
               <div v-else>No slot to fill</div>
             </div>
 
@@ -241,7 +269,7 @@ function handleConfig(config: CombinedConfig) {
           </div>
         </div>
 
-        <tree-node v-if="schema[section[0]]" :node="schema[section[0]]" />
+        <tree-node v-if="getNode(schema[section[0]])" :node="getNode(schema[section[0]])" />
       </div>
     </div>
   </div>

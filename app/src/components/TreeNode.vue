@@ -6,7 +6,7 @@ defineProps<{
 }>();
 </script>
 <template>
-  <component :is="node.component" v-bind="{ config: node.config, ...node.props }">
+  <component :is="node.component" v-bind="{ config: node.config, ...node.props }" :key="node.id">
     <template v-if="!!node.children && !!node.children.length">
       <tree-node v-for="child in node.children" :node="child" :key="child.id" />
     </template>
