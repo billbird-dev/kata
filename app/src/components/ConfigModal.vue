@@ -45,7 +45,7 @@ watch(
 );
 
 function emitConfig() {
-  if (!Object.keys(configModels).length) return;
+  if (!Object.keys(configModels).length) return emits('update:modelValue', false);
 
   emits('config', configModels);
   configModels = {};

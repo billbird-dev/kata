@@ -5,19 +5,33 @@ import {
   CombinedConfig,
   componentNames,
   InvoiceSchema,
+  KataSchema,
   Section,
   SectionName,
 } from 'src/types';
 import TreeNode from 'src/components/TreeNode.vue';
 import { randomId } from 'src/utils';
 import { FMenu } from 'furikaeru';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import KAction from 'src/components/KAction.vue';
 import ConfigModal from 'src/components/ConfigModal.vue';
 import { CombinedComponentConfig } from 'kata';
+import { schemaStore } from 'src/store/schema';
+
+const props = defineProps<{
+  schemaId: string;
+}>();
+
+onMounted(() => {
+  const schemaFromDb = schemaStore.value.get(props.schemaId);
+
+  if (!schemaFromDb) return;
+
+  schema.value = schemaFromDb;
+});
 
 // schema
-const schema = ref<{ [x in SectionName]?: Block }>({
+const schema = ref<KataSchema>({
   header: {
     component: 'kata-header',
     children: [],
@@ -129,7 +143,7 @@ let configModalContext = $ref<{
   configTypes: (keyof CombinedComponentConfig)[];
   section: SectionName;
   existingConfig?: CombinedConfig;
-}>({} as any);
+}>({ configTypes: [] } as any);
 
 const reset = () =>
   (configModalContext = {
@@ -186,13 +200,6 @@ function getNode(node?: Block) {
       :previous-config="configModalContext.existingConfig"
       @config="handleConfig"
     />
-
-    <div class="w-1/3 flex-none">
-      <pre class="text-xs text-gray-800 p-2 rounded-md bg-gray-200 !break-all !break-words">
-  {{ schema }}
-    </pre
-      >
-    </div>
 
     <div class="flex-grow bg-gray-100 border border-gray-300 rounded-md">
       <div
@@ -271,6 +278,12 @@ function getNode(node?: Block) {
 
         <tree-node v-if="getNode(schema[section[0]])" :node="getNode(schema[section[0]])" />
       </div>
+    </div>
+    <div class="flex-none">
+      <pre class="text-xs text-gray-800 p-2 rounded-md bg-gray-200 !break-all !break-words">
+  {{ schema }}
+    </pre
+      >
     </div>
   </div>
 </template>

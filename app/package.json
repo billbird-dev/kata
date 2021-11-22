@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^2.1.0",
+    "@vueuse/core": "^7.0.1",
     "click-outside-vue3": "^4.0.1",
     "furikaeru": "^0.3.0",
     "kata": "workspace:*"

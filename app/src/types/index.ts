@@ -27,3 +27,5 @@ export interface Section {
 }
 
 export type InvoiceSchema = { [x in SectionName]?: Section };
+
+export type KataSchema = { [x in SectionName]?: Block };

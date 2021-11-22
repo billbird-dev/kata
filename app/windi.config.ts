@@ -1,4 +1,6 @@
 import { defineConfig } from 'windicss/helpers';
+import formsPlugin from 'windicss/plugin/forms';
+
 import { furiWindiSafelist } from 'furikaeru';
 
 interface Config {
@@ -34,4 +36,5 @@ export default defineConfig({
   darkMode: 'class',
   safelist: [...furiWindiSafelist, ...generateSafeList([SPACE_Y, FLEX_ALIGN, FLEX_GROW, FLEX_JUSTIFY])],
   extract: { include: ['../**/src/**/*.{vue,html,jsx,tsx}', './node_modules/furikaeru/dist/*'] },
+  plugins: [formsPlugin],
 });
