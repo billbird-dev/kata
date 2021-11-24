@@ -16,7 +16,7 @@ function handleSelectSchema(schema: string) {
 </script>
 <template>
   <div>
-    <div class="w-full flex items-center justify-between bg-gray-100 p-1">
+    <div class="w-full flex items-center justify-between bg-gray-100 p-1 sticky top-0 z-1000">
       <div class="flex items-center space-x-3">
         <div class="text-lime-600 font-bold text-xl cursor-pointer" @click="view = 'listing'">Kata</div>
         <f-button

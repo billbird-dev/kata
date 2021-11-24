@@ -1,20 +1,8 @@
 <script setup lang="ts">
 import { schemaStore } from 'src/store/schema';
 import { FButton } from 'furikaeru';
-import { randomId } from 'src/utils';
-import { KataSchema } from 'src/types';
 
-const SCHEMA_BASE: KataSchema = {
-  header: {
-    component: 'kata-header',
-    children: [],
-    parent: true,
-    id: randomId(),
-    config: {
-      justify: 'between',
-    },
-  },
-};
+import { SCHEMA_BASE } from 'src/utils/constants';
 
 const emits = defineEmits<{
   (e: 'select-schema', id: string): void;

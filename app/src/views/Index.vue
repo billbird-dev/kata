@@ -15,8 +15,9 @@ import { FMenu } from 'furikaeru';
 import { onMounted, ref } from 'vue';
 import KAction from 'src/components/KAction.vue';
 import ConfigModal from 'src/components/ConfigModal.vue';
-import { CombinedComponentConfig } from 'kata';
+import { CombinedComponentConfig } from '../../../lib/src';
 import { schemaStore } from 'src/store/schema';
+import { SCHEMA_BASE } from 'src/utils/constants';
 
 const props = defineProps<{
   schemaId: string;
@@ -31,17 +32,7 @@ onMounted(() => {
 });
 
 // schema
-const schema = ref<KataSchema>({
-  header: {
-    component: 'kata-header',
-    children: [],
-    parent: true,
-    id: randomId(),
-    config: {
-      justify: 'between',
-    },
-  },
-});
+const schema = ref<KataSchema>(SCHEMA_BASE);
 
 /**
 Kata schema
@@ -66,6 +57,13 @@ const INVOICE_SCHEMA: InvoiceSchema = {
     },
     max: 2,
   },
+  intro: {
+    name: 'intro',
+    components: {
+      'text-element': ['align', 'flex', 'fontSize', 'justify'],
+    },
+    max: 1,
+  },
 };
 
 // schema components props store
@@ -84,13 +82,19 @@ const COMPONENT_PROPS: { [C in componentNames]: Record<string, string | number |
     alt: 'Logo',
   },
   'kata-header': {},
+  'text-element': {
+    data: {
+      content: 'TAX INVOICE',
+    },
+  },
+  container: {},
 };
 
 // loopable invoice schema config to render sections
 let loopableSchema = $computed(() => Object.entries(INVOICE_SCHEMA) as any as [SectionName, Section][]);
 
 // transformer for menu
-function trasformComponentsToOptions(components: AcceptedComponents, sectionEls: Block[]) {
+function trasformComponentsToOptions(components: AcceptedComponents) {
   return Object.keys(components).map((e) => ({ label: e, value: e }));
 }
 
@@ -208,7 +212,8 @@ function getNode(node?: Block) {
         :id="section[0]"
         :class="[
           ...(section[1].classes || []),
-          { 'min-h-24': !schema[section[0]] || !schema[section[0]]!.children.length },
+          // { 'min-h-24': !schema[section[0]] || !schema[section[0]]!.children.length },
+          'min-h-32',
         ]"
         class="p-1 flex relative"
       >
@@ -234,7 +239,7 @@ function getNode(node?: Block) {
           <div class="flex space-x-3 text-xs p-2">
             <div class="flex-none">
               <f-menu
-                :options="trasformComponentsToOptions(section[1].components, schema[section[0]]?.children || [])"
+                :options="trasformComponentsToOptions(section[1].components)"
                 option-key="value"
                 label="Add element"
                 v-model="model"
@@ -279,6 +284,7 @@ function getNode(node?: Block) {
         <tree-node v-if="getNode(schema[section[0]])" :node="getNode(schema[section[0]])" />
       </div>
     </div>
+
     <div class="flex-none">
       <pre class="text-xs text-gray-800 p-2 rounded-md bg-gray-200 !break-all !break-words">
   {{ schema }}

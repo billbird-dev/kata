@@ -7,12 +7,17 @@ import 'src/index.scss';
 //@ts-expect-error
 import vClickOutside from 'click-outside-vue3';
 
-import { KataHeader, HeaderInfo, HeaderLogo } from '../../lib/src';
+import { KataHeader, HeaderInfo, HeaderLogo, TextElement, Container } from '../../lib/src';
 
 const app = createApp(App);
 
 app.use(vClickOutside);
 
-app.component('kata-header', KataHeader).component('header-info', HeaderInfo).component('header-logo', HeaderLogo);
+app
+  .component('kata-header', KataHeader)
+  .component('header-info', HeaderInfo)
+  .component('header-logo', HeaderLogo)
+  .component('text-element', TextElement)
+  .component('container', Container);
 
 app.mount('#app');

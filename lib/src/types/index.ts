@@ -5,3 +5,7 @@ export interface HeaderHints {
   gstin: string;
   phone: string;
 }
+
+export interface TextElementData {
+  content: string;
+}

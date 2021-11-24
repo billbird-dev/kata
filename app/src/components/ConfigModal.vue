@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FModal, FMenu, FButton } from 'furikaeru';
-import { CombinedComponentConfig } from 'kata';
+import { CombinedComponentConfig } from '../../../lib/src';
 import { CombinedConfig, componentNames } from 'src/types';
 import config from 'src/utils/config.json';
 

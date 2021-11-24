@@ -12,8 +12,15 @@ export interface StyleTools {
 
 export type Space = '1' | '2' | '3' | '4' | '5';
 
+// Font size
+export type FontSize = 'xs' | 'sm' | 'lg' | 'xl' | '2xl' | '3xl';
+
 export interface HeaderInfoStyles extends StyleTools {
   space?: Space;
 }
 
-export type CombinedComponentConfig = Partial<StyleTools & HeaderInfoStyles>;
+export interface TextElementStyles extends StyleTools {
+  fontSize?: FontSize;
+}
+
+export type CombinedComponentConfig = Partial<StyleTools & HeaderInfoStyles & TextElementStyles>;

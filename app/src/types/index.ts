@@ -1,6 +1,6 @@
-import { CombinedComponentConfig } from 'kata';
+import { CombinedComponentConfig } from '../../../lib/src';
 
-export type componentNames = 'kata-header' | 'header-info' | 'header-logo';
+export type componentNames = 'kata-header' | 'header-info' | 'header-logo' | 'text-element' | 'container';
 export type componentProps = Record<string, string | number | { [x: string]: any }>;
 export type CombinedConfig = { [x: string]: string | number | undefined } & CombinedComponentConfig;
 
@@ -11,6 +11,8 @@ export interface Block {
   props?: componentProps;
   id: string;
   parent: boolean;
+  classes?: Classes;
+  styles?: { [x: string]: string | number };
 }
 
 export type Classes = (string | { [x: string]: boolean })[];
